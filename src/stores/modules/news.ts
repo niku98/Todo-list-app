@@ -1,5 +1,5 @@
 import type { AppStoreState, INews, NewsStoreModuleState } from "@/models";
-import NewsRepository from "@/repositories/NewsRepository";
+import NewsApi from "@/apis/NewsApi";
 import type { Module } from "vuex";
 
 const defaultNews: INews[] = [];
@@ -16,7 +16,7 @@ export const newsStoreModule: Module<NewsStoreModuleState, AppStoreState> = {
   },
   actions: {
     async getList(store) {
-      const response = await NewsRepository.get();
+      const response = await NewsApi.get();
       store.commit("updateList", response.data);
     },
   },

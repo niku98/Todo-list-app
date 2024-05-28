@@ -1,14 +1,14 @@
 import type { INews } from "@/models";
-import { createRepository } from "@/utilities/createRepository";
+import { createApi } from "@/utilities/createApi";
 import appEnv from "app-env";
 
-const NewsRepository = createRepository(
+const NewsRepository = createApi(
   {
     baseURL: appEnv.VITE_API_ENDPOINT,
   },
   {
     get(axios) {
-      return axios.get<INews[]>("/news");
+      return axios.get<INews[]>("/news.json");
     },
   }
 );

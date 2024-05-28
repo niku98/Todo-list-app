@@ -1,14 +1,14 @@
 import type { Profile } from "@/models/auth";
-import { createRepository } from "@/utilities/createRepository";
+import { createApi } from "@/utilities/createApi";
 import appEnv from "app-env";
 
-const AuthRepository = createRepository(
+const AuthRepository = createApi(
   {
     baseURL: appEnv.VITE_API_ENDPOINT,
   },
   {
     getProfile(axios) {
-      return axios.get<Profile>("/profile");
+      return axios.get<Profile>("/profile.json");
     },
   }
 );

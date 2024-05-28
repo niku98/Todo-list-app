@@ -1,5 +1,5 @@
 import type { AppStoreState, ITask, TodoStoreModuleState } from "@/models";
-import TodoRepository from "@/repositories/TodoRepository";
+import TodoApi from "@/apis/TodoApi";
 import type { Module } from "vuex";
 
 const defaultTasks: ITask[] = [];
@@ -35,19 +35,24 @@ export const todoStoreModule: Module<TodoStoreModuleState, AppStoreState> = {
   },
   actions: {
     async getList(store) {
-      const response = await TodoRepository.get();
+      // Persist the list in the store
+      if(store.state.list.length > 0) {
+        return;
+      }
+
+      const response = await TodoApi.get();
       store.commit("updateList", response.data);
     },
     async create(store, task: ITask) {
-      const response = await TodoRepository.create(task);
-      store.commit("addTask", response.data);
+      store.commit("addTask", {
+        ...task,
+        id: Math.random().toString(36).slice(-8),
+      });
     },
     async update(store, { id, task }: { id: string; task: ITask }) {
-      await TodoRepository.update(id, task);
       store.commit("updateTask", { id, task });
     },
     async delete(store, id: string) {
-      await TodoRepository.delete(id);
       store.commit("deleteTask", id);
     },
   },
