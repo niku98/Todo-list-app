@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "serve": "serve",
-    "mock-server:start": "serve -p 3000 --cors ./mocks"
+    "mock-server:start": "serve -p 3000 --cors ./src/assets/mocks"
   },
   "dependencies": {
     "@niku/vite-env-caster": "^1.0.2",
