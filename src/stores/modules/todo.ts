@@ -17,7 +17,7 @@ export const todoStoreModule: Module<TodoStoreModuleState, AppStoreState> = {
       const index = state.list.findIndex((item) => item.id === id);
       if (index > -1) {
         const newList = state.list.slice(0);
-        newList[index] = task;
+        newList[index] = {...task, id};
         state.list = newList;
       }
     },

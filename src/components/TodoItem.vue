@@ -6,6 +6,9 @@ import { computed } from "vue";
 const props = defineProps<{
   task: ITask;
 }>();
+defineEmits<{
+  edit: [task: ITask]
+}>()
 
 const appStore = useAppStore();
 
@@ -52,6 +55,7 @@ function deleteTask() {
         @click="markAsComplete"
         >Complete</BButton
       >
+      <BButton variant="info" class="ms-2" @click="$emit('edit', task)">Edit</BButton>
       <BButton variant="outline-dark" class="ms-2" @click="deleteTask">Remove</BButton>
     </template>
   </BCard>
