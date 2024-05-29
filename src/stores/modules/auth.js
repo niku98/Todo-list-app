@@ -1,18 +1,15 @@
-import type { AppStoreState, AuthStoreModuleState } from "@/models";
-import type { Profile } from "@/models/auth";
 import AuthApi from "@/apis/AuthApi";
-import type { Module } from "vuex";
 
-export const authStoreModule: Module<AuthStoreModuleState, AppStoreState> = {
+export const authStoreModule = {
   namespaced: true,
   state() {
     return { isSignedIn: false, profile: undefined };
   },
   mutations: {
-    updateProfile(state, profile?: Profile) {
+    updateProfile(state, profile) {
       state.profile = profile;
     },
-    updateIsSignedIn(state, val: boolean) {
+    updateIsSignedIn(state, val) {
       state.isSignedIn = val;
     },
   },

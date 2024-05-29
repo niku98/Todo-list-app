@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 import { useAppStore } from "@/stores";
 import { computed } from "vue";
 

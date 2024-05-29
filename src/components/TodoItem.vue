@@ -1,14 +1,17 @@
-<script lang="ts" setup>
-import { TaskStatus, type ITask } from "@/models";
+<script setup>
+import { TaskStatus } from "@/models";
 import { useAppStore } from "@/stores";
 import { computed } from "vue";
 
-const props = defineProps<{
-  task: ITask;
-}>();
-defineEmits<{
-  edit: [task: ITask]
-}>()
+const props = defineProps({
+  task: {
+    type: Object,
+    required: true,
+  },
+});
+defineEmits({
+  edit: [Object],
+});
 
 const appStore = useAppStore();
 

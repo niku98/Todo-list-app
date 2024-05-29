@@ -1,50 +1,60 @@
-<script lang="ts" setup>
-import { TaskStatus, type ITask } from "@/models";
+<script setup>
+import { TaskStatus } from "@/models";
 import { useAppStore } from "@/stores";
 import { computed, reactive, toRaw, watch } from "vue";
 
-const defaultTask: ITask = {
+const defaultTask = {
   title: "",
   description: "",
   status: TaskStatus.Pending,
 };
 
-const props = defineProps<{
-  task?: ITask;
-}>();
+const props = defineProps({
+  task: {
+    type: Object,
+    default: undefined,
+  },
+});
 
-const task = reactive<ITask>({
+const emit = defineEmits(["reset", "submit"]);
+
+const task = reactive({
   ...(props.task ?? defaultTask),
 });
 
-watch(() => props.task, (value) => {
-  if (value) {
-    Object.assign(task, value);
+watch(
+  () => props.task,
+  (value) => {
+    if (value) {
+      Object.assign(task, value);
+    }
   }
-});
+);
 
 const appStore = useAppStore();
 
 const signedIn = computed(() => appStore.state.auth.isSignedIn);
 
 async function handleSubmit() {
-  if(task.id) {
-    await appStore.dispatch("todo/update", {id: task.id, task: toRaw(task)});
+  if (task.id) {
+    await appStore.dispatch("todo/update", { id: task.id, task: toRaw(task) });
   } else {
     await appStore.dispatch("todo/create", toRaw(task));
   }
-  handleReset();
+  emit("submit");
+  handleReset(false);
 }
 
-function handleReset() {
+function handleReset(shouldEmit = true) {
   task.id = undefined;
   Object.assign(task, defaultTask);
+  shouldEmit && emit("reset");
 }
 </script>
 
 <template>
   <BCard v-if="signedIn" class="mt-5">
-    <h4>New task:</h4>
+    <h4>{{ task.id ? "Edit" : "New" }} task:</h4>
     <BForm @submit.prevent="handleSubmit" @reset="handleReset">
       <BFormGroup label="Title" label-for="title" class="mb-4">
         <BFormInput id="title" v-model="task.title" />
@@ -54,8 +64,8 @@ function handleReset() {
       </BFormGroup>
 
       <div class="text-end mt-4">
-        <BButton type="reset" variant="outline-dark" class="me-2">Reset</BButton>
-        <BButton type="submit" variant="primary">{{ task.id ? 'Edit task' : 'Add task' }}</BButton>
+        <BButton type="reset" variant="outline-dark" class="me-2">Cancel</BButton>
+        <BButton type="submit" variant="primary">{{ task.id ? "Edit task" : "Add task" }}</BButton>
       </div>
     </BForm>
   </BCard>

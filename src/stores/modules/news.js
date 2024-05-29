@@ -1,16 +1,14 @@
-import type { AppStoreState, INews, NewsStoreModuleState } from "@/models";
 import NewsApi from "@/apis/NewsApi";
-import type { Module } from "vuex";
 
-const defaultNews: INews[] = [];
+const defaultNews = [];
 
-export const newsStoreModule: Module<NewsStoreModuleState, AppStoreState> = {
+export const newsStoreModule = {
   namespaced: true,
   state() {
     return { list: defaultNews };
   },
   mutations: {
-    updateList(state, news: INews[]) {
+    updateList(state, news) {
       state.list = news;
     },
   },

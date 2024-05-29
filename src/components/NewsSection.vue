@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 import NewsItem from "@/components/NewsItem.vue";
 import { useAppStore } from "@/stores";
 import { computed } from "vue";

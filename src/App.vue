@@ -1,8 +1,7 @@
-<script setup lang="ts">
+<script setup>
 import MainNav from "@/components/MainNav.vue";
 import NewsSection from "@/components/NewsSection.vue";
 import { useAppStore } from "@/stores";
-import type { RouterView } from "vue-router";
 
 const appStore = useAppStore();
 

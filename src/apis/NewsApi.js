@@ -1,16 +1,15 @@
-import type { ITask } from "@/models";
 import { createApi } from "@/utilities/createApi";
 import appEnv from "app-env";
 
-const TodoRepository = createApi(
+const NewsRepository = createApi(
   {
     baseURL: appEnv.VITE_API_ENDPOINT,
   },
   {
     get(axios) {
-      return axios.get<ITask[]>("/todo.json");
+      return axios.get("/news.json");
     },
   }
 );
 
-export default TodoRepository;
+export default NewsRepository;

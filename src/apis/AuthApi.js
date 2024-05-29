@@ -1,4 +1,3 @@
-import type { Profile } from "@/models/auth";
 import { createApi } from "@/utilities/createApi";
 import appEnv from "app-env";
 
@@ -8,7 +7,7 @@ const AuthRepository = createApi(
   },
   {
     getProfile(axios) {
-      return axios.get<Profile>("/profile.json");
+      return axios.get("/profile.json");
     },
   }
 );

@@ -1,11 +1,16 @@
-<script lang="ts" setup>
-import type { INews } from "@/models";
+<script setup>
 import { computed } from "vue";
 
-const props = defineProps<{
-  news: INews;
-  imagePosition: "left" | "right";
-}>();
+const props = defineProps({
+  news: {
+    type: Object,
+    required: true,
+  },
+  imagePosition: {
+    type: String,
+    required: true,
+  },
+});
 
 const imageOnLeft = computed(() => props.imagePosition === "left");
 </script>
